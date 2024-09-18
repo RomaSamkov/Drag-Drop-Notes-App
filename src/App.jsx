@@ -1,5 +1,11 @@
+import NotesPage from "./pages/NotesPage";
+
 function App() {
-  return <>MyApp</>;
+  return (
+    <div>
+      <NotesPage />
+    </div>
+  );
 }
 
 export default App;
