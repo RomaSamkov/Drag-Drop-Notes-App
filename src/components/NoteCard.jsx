@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import Trash from "../icons/Trash";
-import { setNewOffset } from "../utils";
+import { autoGrow, setNewOffset } from "../utils";
 
 /* eslint-disable react/prop-types */
 const NoteCard = ({ note }) => {
@@ -15,12 +15,6 @@ const NoteCard = ({ note }) => {
   useEffect(() => {
     autoGrow(textAreaRef);
   }, []);
-
-  const autoGrow = (textAreaRef) => {
-    const { current } = textAreaRef;
-    current.style.height = "auto"; // Reset the height
-    current.style.height = current.scrollHeight + "px"; // Set the new height
-  };
 
   const mouseDown = (e) => {
     mouseStartPos.x = e.clientX;
