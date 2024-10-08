@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import Trash from "../icons/Trash";
 import { autoGrow, bodyParser, setNewOffset, setZIndex } from "../utils";
+import { db } from "../appwrite/databases";
 
 /* eslint-disable react/prop-types */
 const NoteCard = ({ note }) => {
@@ -43,6 +44,19 @@ const NoteCard = ({ note }) => {
   const mouseUp = () => {
     document.removeEventListener("mousemove", mouseMove);
     document.removeEventListener("mouseup", mouseUp);
+
+    const newPosition = setNewOffset(cardRef.current);
+    saveData("position", newPosition);
+    // db.notes.update(note.$id, { position: JSON.stringify(newPosition) });
+  };
+
+  const saveData = async (key, value) => {
+    const payload = { [key]: JSON.stringify(value) };
+    try {
+      db.notes.update(note.$id, payload);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
